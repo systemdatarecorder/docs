@@ -1,0 +1,434 @@
+
+\chapter{Release Notes}
+The release notes for System Data Recorder, incuding recording 
+and reporting modules.
+
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION 0.74
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Version 0.74}
+\noindent
+This is the current version of SDR Recording Module, including all bug 
+fixes and changes for SDR 0.74 Linux x86/64 and Solaris x64/sparc 
+operating systems. 
+
+\subsection*{Recording}
+
+\subsubsection*{Linux x86/64}
+\begin{verbatim}
+ Bug 196 - sender specifications
+ Bug 197 - Email::Send not supported
+ Bug 198 - add File::Tail, Proc::Daemon, Proc::PID::File to SDR Perl distro
+ Bug 200 - sender libssh2 error channel unknown
+ Bug 201 - better logging if ssh2 connections are failing
+ Bug 202 - sender missing manual page
+ Bug 203 - hdwrec uninitialized values
+ Bug 204 - sender.pid should relocate under sdr prefix
+ Bug 205 - netrec should die if netstat is not available
+ Bug 206 - jvmrec should die if jstat is not available
+ Update perl-5.16.0
+ Update Net-SSH2-0.45
+ Update curl-7.26.0
+ Update idn-1.25
+ Update XML-LibXML-1.99
+\end{verbatim}
+
+\subsubsection*{Solaris 10 x64/sparcv9}
+\begin{verbatim}
+ Bug 196 - sender specifications
+ Bug 197 - Email::Send not supported
+ Bug 198 - add File::Tail, Proc::Daemon, Proc::PID::File to SDR Perl distro
+ Bug 200 - sender libssh2 error channel unknown
+ Bug 201 - better logging if ssh2 connections are failing
+ Bug 202 - sender missing manual page
+ Bug 204 - sender.pid should relocate under sdr prefix
+ Update perl-5.16.0
+ Update Net-SSH2-0.45
+ Update curl-7.26.0
+ Update idn-1.25
+ Update XML-LibXML-1.99
+\end{verbatim}
+
+\subsubsection*{Known Defects}
+\begin{verbatim}
+ Bug 172 - procrec uses additional memory over long periods of time
+ Info: procrec uses Sys::Statistics::Linux, Processes.pm to
+ extract per process statistics. It seems there is a design
+ issue within Processes.pm module which caches each
+ process id resulting in a larger RES segment over long periods 
+ of time. We are working with the author of Sys::Statistics::Linux
+ to correct this defect.
+
+ Bug 173 - jvmrec uses more memory over long periods of time
+ Info: jvmrec in extended mode, uses Sys::Statistics::Linux
+ to extract per process statistics, resulting in a similar 
+ memory usage pattern as described for procrec, Bug 172.
+\end{verbatim}
+
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION 0.73.7 
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Version 0.73.7}
+\noindent
+This is the current version of SDR Recording Module, including all bug 
+fixes and changes for SDR 0.73.7 Linux x86/64 and Solaris x64/sparc 
+operating systems. 
+
+\subsection*{Recording}
+
+\subsubsection*{Linux x86/64}
+\begin{verbatim}
+ Bug 175 - remove -w from shebang, just use warnings
+ Bug 176 - HOSTNAME produces FQDN on Linux
+ Bug 179 - SDR Data File Extension .sdrd
+ Bug 183 - Normalization of Metrics CPU Utilization Linux
+ Bug 185 - port raw2day form ksh to perl5
+ Bug 177 - separate raw2day log rotation from transport mode
+ Bug 184 - missing runq-sz number of tasks waiting for run time
+ Bug 192 - sysrec sdrd 0737 data format changes
+ Update Net-SSH2-0.44
+ Update curl-7.25.0
+ Update libssh2-1.4.2
+ Update sysstat-10.0.5
+ Security Update: openssl-1.0.0j
+\end{verbatim}
+
+\subsubsection*{Solaris 10 x64/sparcv9}
+\begin{verbatim}
+ Bug 175 - remove -w from shebang, just use warnings
+ Bug 179 - SDR Data File Extension .sdrd
+ Bug 182 - Normalization of Metrics CPU Utilization Solaris
+ Bug 185 - port raw2day form ksh to perl5
+ Bug 177 - separate raw2day log rotation from transport mode
+ Bug 193 - sysrec solaris sdrd 0737 data format changes
+ Bug 194 - jvmrec should output timestamp as first field in raw data
+ Update Net-SSH2-0.44
+ Update curl-7.25.0
+ Update libssh2-1.4.2
+ Update sysstat-10.0.5
+ Security Update: openssl-1.0.0j
+\end{verbatim}
+
+\subsubsection*{Known Defects}
+\begin{verbatim}
+ Bug 172 - procrec uses additional memory over long periods of time
+ Info: procrec uses Sys::Statistics::Linux, Processes.pm to
+ extract per process statistics. It seems there is a design
+ issue within Processes.pm module which caches each
+ process id resulting in a larger RES segment over long periods 
+ of time. We are working with the author of Sys::Statistics::Linux
+ to correct this defect.
+
+ Bug 173 - jvmrec uses more memory over long periods of time
+ Info: jvmrec in extended mode, uses Sys::Statistics::Linux
+ to extract per process statistics, resulting in a similar 
+ memory usage pattern as described for procrec, Bug 172.
+\end{verbatim}
+
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION 0.73.6 
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Version 0.73.6}
+\noindent
+This is the current version of SDR Recording Module, including all bug 
+fixes and changes for SDR 0.73.6 Linux x86/64 and Solaris x64/sparc 
+operating systems. 
+
+\subsection*{Recording}
+
+\subsubsection*{Linux x86/64}
+\begin{verbatim}
+  Bug 167 - procrec uninitialized value in division from Processes.pm
+  Bug 168 - master sdr startup script kills other interactive sdr
+sessions
+
+\end{verbatim}
+
+\subsubsection*{Solaris 10 x64/sparcv9}
+\begin{verbatim}
+  Bug 168 - master sdr startup script kills other interactive sdr
+             sessions
+  Bug 148 - openssl vulnerabilities and other libs available
+  Bug 150 - sysrec help usage field counter
+  Bug 151 - revision should answer to -V
+  Bug 152 - make sysrec perlcritic level 4 compliant
+  Bug 153 - make cpurec perlcritic level 4 compliant
+  Bug 154 - make nicrec perlcritic level 4 compliant
+  Bug 155 - make netrec perlcritic level 4 compliant
+  Bug 159 - cpurec help usage field counter
+  Bug 160 - nicrec help usage field counter
+  Bug 161 - netrec help usage field counter
+  Security Update: openssl-1.0.0g
+  Update libssh2-1.4.0
+  Update curl-7.24.0
+  Update libidn-1.24
+\end{verbatim}
+
+\subsubsection*{Known Defects}
+\begin{verbatim}
+  diskrec Linux x86/64, Solaris x64/sparcv9: not available
+\end{verbatim}
+
+
+
+\section{Version 0.73.5}
+\noindent
+This is the list of all bug fixes and changes for SDR 0.73.5 Linux x86/64
+operating systems. This includes a security fix and it is a Linux release !
+
+\subsection*{Recording}
+
+\subsubsection*{Linux x86/64}
+\begin{verbatim}
+  Bug 141 - sysrec should report detailed mem statistics
+  Bug 148 - openssl vulnerabilities and other libs available
+  Bug 150 - sysrec help usage field counter
+  Bug 151 - revision should answer to -V
+  Bug 152 - make sysrec perlcritic level 4 compliant
+  Bug 149 - jvmrec missing second colon field delimiter when new 
+             generation one is 100 %
+  Bug 153 - make cpurec perlcritic level 4 compliant
+  Bug 154 - make nicrec perlcritic level 4 compliant
+  Bug 155 - make netrec perlcritic level 4 compliant
+  Bug 156 - make jvmrec perlcritic level 4 compliant
+  Bug 157 - make procrec perlcritic level 4 compliant
+  Bug 159 - cpurec help usage field counter
+  Bug 160 - nicrec help usage field counter
+  Bug 161 - netrec help usage field counter
+  Bug 162 - jvmrec help usage field counter
+  Bug 163 - procrec help usage field counter
+  Security Update: openssl-1.0.0g
+  Update libssh2-1.4.0
+  Update curl-7.24.0
+  Update libidn-1.24
+  Update sysstat-10.0.3
+\end{verbatim}
+
+\subsubsection*{Known Defects}
+\begin{verbatim}
+  diskrec Linux x86/64, Solaris x64/sparcv9: not available
+\end{verbatim}
+
+
+\section{Version 0.73.4}
+\noindent
+This is the list of all bug fixes and changes for SDR 0.73.4 Linux x86/64
+operating systems. This includes a security fix and it is a Linux release !
+
+\subsection*{Recording}
+
+\subsubsection*{Linux x86/64}
+\begin{verbatim}
+  Bug 140 - jvmrec does not correctly process jvm target names
+  Security Update: openssl-1.0.0e 
+  Update libssh2-1.2.9
+  Update sysstat-10.0.2
+  Update curl-7.22.0
+\end{verbatim}
+
+\subsubsection*{Solaris 10 x64/sparcv9}
+\begin{verbatim}
+  Bug 119 - cleaner shipped with SDR recorders
+  Bug 135 - sysrec sub-second interval support
+  Bug 136 - cpurec sub-second interval support
+  Bug 137 - netrec sub-second interval support
+  Bug 138 - timestamp should be the first field in the raw data
+  Bug 139 - nicrec sub-second interval support
+  Security Update: openssl-1.0.0e
+  Update libssh2-1.3.0
+  Update curl-7.22.0
+  Update libidn-1.22
+  Remove nicrec-1.22, unmaintained
+\end{verbatim}
+
+\subsubsection*{Known Defects}
+\begin{verbatim}
+  diskrec Linux x86/64, Solaris x64/sparcv9: not available
+\end{verbatim}
+
+
+
+\section{Version 0.73.3}
+\noindent
+This is the list of all bug fixes and changes for SDR 0.73.3 Linux x86/64
+operating systems. This is a Linux release only !
+
+\subsection*{Recording}
+\subsubsection*{Linux x86/64}
+
+\begin{verbatim}
+  Bug 121 - add support for sub second interval
+  Bug 115 - 0.73.2 openssl not finding its own shared libs
+  Bug 129 - make jvmrec report the time as the first field in raw data
+  Bug 124 - add support for io stats
+  Bug 117 - nicrec for Linux based OSes
+  Bug 104 - procrec Linux support
+  Bug 130 - update sysrec man page for latest changes
+  Bug 131 - update cpurec man page for latest changes
+  Bug 132 - update nicrec man page for latest changes
+  Bug 133 - update jvmrec man page for latest changes
+  Bug 134 - update procrec man page for latest changes
+  Update perl to perl-5.12.4
+  Update libssh2 to libssh2-1.2.9
+
+  Known Defects
+   diskrec Linux x86/64, Solaris x64/sparcv9: not available
+\end{verbatim}
+
+
+\section{Version 0.73.2}
+\noindent
+This is the list of all bug fixes and changes for SDR 0.73.2 Linux x86/64
+operating systems. This is a Linux release only !
+
+\subsection*{Recording}
+\subsubsection*{Linux x86/64}
+
+\begin{verbatim}
+  Bug 108 - ssh2 via Net::SSH2
+  Bug 113 - make sysrec clean to perlcritic
+  Bug 110 - jvmrec incorrectly uses pargs in Linux based OSes
+  Bug 112 - make netrec clean on perlcritic
+  Bug 114 - update jvmrec man page for Linux
+  Update libidn to libidn-1.22
+  Update curl to curl-7.21.7
+  Update systat to sysstat-10.0.1
+  Remove nicrec-1.22, unmaintained
+\end{verbatim}
+
+
+
+\section{Version 0.73.1}
+\noindent
+This is the list of all bug fixes and changes for SDR 0.73.1 Linux x86/64
+and Solaris x64/sparcv9.
+
+\subsection*{Recording}
+\subsubsection*{Linux x86/64, Solaris x64/sparcv9}
+
+\begin{verbatim}
+  Bug 102 - jvmrec does not record jvm data from all zones, 64bit support
+  Update perl to perl-5.12.3
+  Update openssl to openssl-1.0.0d
+  Update curl to curl-7.21.5
+  Update sysstat to systat-10.0.0
+\end{verbatim}
+
+
+\section{Version 0.73}
+\noindent
+This is the list of all bug fixes and changes for SDR 0.73 Linux x86/64
+and Solaris x86/64.
+
+\subsection*{Recording}
+\subsubsection*{Linux x86/64, Solaris x64/sparcv9}
+
+\begin{verbatim}
+  Bug 92 - recording startup scripts do not redirect stderr
+  Bug 27 - port sysrec to RHAT 5.x/ Linux x86/64 kernels
+  Bug 78 - add CPU User/System/Idle and LA information to the raw data
+  Bug 66 - make sysrec more resilient when time drifts
+  Bug 93 - sysrec linux outputs errors when hot inserting a disk on the system
+  Bug 46 - dont load all POSIX module inside cpurec, conserve memory
+  Bug 77 - port cpurec to Linux x86/64
+  Bug xx - port netrec to Linux x86/64
+  Bug xx - ship Perl and native version for Solaris, Linux
+  Bug 67 - convert zonerec from ksh to perl
+  Bug 71 - make zonerec more resilient when time drifts
+  Bug 48 - error when running as non root
+  Bug 21 - specs for webrec 
+  Bug 57 - webrec: response time should be a float
+  Bug 61 - webrec raw data in case of timeout, slow links
+  Bug 56 - raw data inconsistent
+  Bug 58 - log proper starting message on stdout
+  Bug 89 - webrec build.xml cannot run with Java 5
+  Bug xx - enhance manual pages, Solaris, Linux
+  Update perl to perl-5.12.2
+  Update openssl to openssl-1.0.0c
+  Update curl to curl-7.21.3
+  Update sysstat to sysstat-9.1.7
+
+Known issues
+============
+
+jvmrec  will stay a KSH implementation for this time. The recorder is 
+        not designed to operate on lower intervals than 60 seconds 
+        due the overhead from jstat utility. Future releases will 
+        consider moving from KSH to Perl and enhance the recording
+        mechanism.
+
+webrec  Bug 87: negative values in webrec raw data. We have detected
+        during our internal tests that webrec, sometimes, will 
+        report negative values for certain HTTP actions. We are 
+        investigating this and will be fixed in a future release.
+        It has been reported that this defect happens sometimes, it is
+        not a continuous issue.
+
+\end{verbatim}
+
+
+\section{Version 0.71}
+\noindent
+This is the list of all bug fixes and changes for SDR 0.71 Linux x86/64 and
+Solaris x64/sparcv9.
+
+\subsection*{Recording}
+\subsubsection*{Linux x86/64, Solaris x64/sparcv9}
+
+\begin{verbatim}
+  Bug 11 - sysrec records negative memory usage
+  Bug 08 - sysrec should take into consideration ZFS ARC consumer
+  Bug 24 - missing CPU information
+  Bug 12 - hdwrec incorrect parse of number of physical disks installed
+  Bug xx - zonerec item support for Solaris local zones
+  Bug xx - SMF manifest name fix
+  Bug xx - corerec support for SPARC VI, VII cpus
+  Bug xx - corerec SMF manifest name fix
+\end{verbatim}
+
+
+\subsection*{Reporting}
+
+\begin{verbatim}
+  Bug 31 - Support for IE 5,6,7
+  Bug 32 - SDR Perl Memory leak in Perl 5.10 on Solaris 10 with \%ENV
+  Bug xx - wlanalyzer: calculates throughput for your application, service
+           time
+  Update perl to perl-5.10.1
+  Update RRD to RRDtool-1.4.2
+  Update R to R-2.9.2
+  Update PDQ to pdq-5.0.3
+\end{verbatim}
+
+
+\section{Version 0.63}
+\noindent
+This is the list of all bug fixes and changes for SDR 0.63 Solaris x64/sparcv9.
+This is a Solaris release only !
+
+\subsection*{Recording}
+\subsubsection*{Solaris x64/sparcv9}
+
+\begin{verbatim}
+  cpurec: improved reporting for user/sys/idle
+  netrec: for system with no zones deployed new features available
+  raw2day: connectors for SSH, FTP for automating sending the logs to 
+           reporting site
+  sender: experimental job to send data every N minutes to reporting side
+  hdwRec: hardware recorder improvements
+\end{verbatim}
+
+
+\subsection*{Reporting}
+
+\begin{verbatim}
+  system reports: sysrec data per cpu reports: cpurec data
+  per zone reports: zonerec data, experimental
+  per server hdw configuration: hdwrec data
+  scalability: USL and integration of TEST or QA data
+\end{verbatim}
+
+\endinput

@@ -1,0 +1,131 @@
+\documentclass[11pt,a4paper,twoside,pdftex]{book}
+
+\usepackage[T1]{fontenc}
+%\usepackage{ae,aecompl,aeguill}
+\usepackage{times}
+\usepackage[pdftex]{graphicx}
+\usepackage[linkcolor=blue]{hyperref}
+\usepackage{relsize,fancyvrb}
+
+\usepackage{eso-pic}
+\newcommand\BackgroundPic{
+\put(0,0){
+\parbox[b][\paperheight]{\paperwidth}{%
+\vfill
+\centering
+\includegraphics[width=\paperwidth,height=\paperheight,
+keepaspectratio]{back.png}%
+\vfill
+}}}
+
+
+% generates the chapter header
+\usepackage[Lenny]{fncychap}
+
+
+% generates the chapter header
+%\usepackage[avantgarde]{quotchap}
+%\renewcommand\chapterheadstartvskip
+%              {\vspace*{-5\baselineskip}}
+%\usepackage{helvet}
+%\renewcommand\sectfont{\sffamily\bfseries}
+
+
+% generates the frontpage
+\makeatletter
+\def\thickhrulefill{\leavevmode \leaders \hrule height 1pt\hfill \kern \z@}
+\renewcommand{\maketitle}{\begin{titlepage}%
+    \let\footnotesize\small
+    \let\footnoterule\relax
+    \parindent \z@
+    \reset@font
+    \null
+    \vskip 10\p@
+    \hbox{\mbox{%
+        \hspace{4pt}%
+        \includegraphics[keepaspectratio]{sdrnew40x42.png}
+        \hspace{4pt}
+        }%
+      \vrule depth 0.9\textheight%
+      \mbox{\hspace{2em}}
+      \vtop{% %%%%%%%%%%%%%%%%%%
+        %\vskip 40\p@
+        \vskip 240\p@
+        \begin{flushleft}
+          \Large \bfseries \@author \par
+        \end{flushleft}
+        %\vskip 80\p@
+        \vskip 40\p@
+        \begin{flushleft}
+          \huge \bfseries \@title \par
+          \Large \bfseries ver 0.71 \par
+        \end{flushleft}
+        \vfil
+        }}
+    \null
+  \end{titlepage}%
+  \setcounter{footnote}{0}%
+}
+\makeatother
+
+
+% marginal notes
+\newcommand\marginlabel[1]{\mbox{}\marginpar
+  {\raggedright\hspace{0pt}#1}}
+
+
+
+% sets title, author, date
+\title{System Data Recorder \\
+       User Guide}
+\author{www.systemdatarecorder.org}
+\date{December 28, 2009}
+
+ 
+% sets the PDF info
+\pdfinfo{
+   /Author (sparvu)
+   /Title  (User Guide)
+   % YYYYMMDDHHmmss
+   /CreationDate (D:20091129120000)
+   /Subject (SDR Installation)
+   /Keywords (SDR;Install;Unix)
+}
+
+
+% %%%%%%%%%%%%%% %
+% Begin Document %
+% %%%%%%%%%%%%%% %
+\newbox\bwk\edef\tempd#1pt{#1\string p\string t}\tempd\def\nbextr#1pt{#1}
+\def\npts#1{\expandafter\nbextr\the#1\space}
+\def\ttwplink#1#2{\special{ps:1 0 0 setrgbcolor}#2\special{ps:0 0 0 setrgbcolor}\setbox\bwk=\hbox{#2}\special{ps:( linkto #1)\space\npts{\wd\bwk} \npts{\dp\bwk} -\npts{\ht\bwk} true\space Cpos}}
+\begin{document}
+
+\frontmatter
+\maketitle
+\include{copyright}
+\include{credits}
+\tableofcontents
+%\AddToShipoutPicture*{\BackgroundPic}
+%\listoffigures
+%\listoftables
+
+\mainmatter
+% Include Chapters
+
+% Chapter 1
+\include{intro}
+
+% Release Notes
+\include{chapter2}
+
+% Installation
+\include{chapter3}
+ %  Requirements
+ %  Install phase
+ %  Start
+ 
+\backmatter
+\end{document}
+% %%%%%%%%%%%%%% %
+

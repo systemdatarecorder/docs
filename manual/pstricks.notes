@@ -1,0 +1,37 @@
+ps2pdf
+This is the absolutely easiest way to convert a complete document or a single PSTricks image to pdf:
+
+ps2pdf <file>.ps
+
+dvipdf is no alternative, because it cannot handle the PostScript prologue files. Use always dvips and then ps2pdf.
+
+If you use a gui for creating your document, then set your output profile to LaTeX=>PS=>PDF, then your gui does it all.
+
+To get all images as eps files create a document, which holds only the PSTricks images (use the following template):
+
+\documentclass{minimal}
+\usepackage{pstricks}
+\uespackage{pst-...}
+\pagestyle{empty}
+\begin{document}
+...  code for an image ...
+\clearpage
+...  code for an image ...
+\clearpage
+...
+\end{document}
+
+now run
+
+latex <file>.tex
+dvips <file>.dvi
+ps2pdf <file>.ps
+pdf2eps <pagenumber> <file>
+
+pdf2eps is a script which converts a single pdf page to en eps image with a cropped whitespace (needs pdfcrop). "pdf2eps 2 <file>" builds an eps from the second page.
+
+To get type 1 fonts, you should always use the following two packages in your document:
+
+\usepackage[T1]{fontenc} % 
+\usepackage{lmodern} % the latin modern font family
+

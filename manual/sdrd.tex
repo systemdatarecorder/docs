@@ -1,0 +1,143 @@
+
+\chapter{Raw Data Format}
+The current section describes the sdrd raw data format used by
+SDR Recorders.
+
+% GENERAL RULES %
+\section*{General Rules}
+All SDR recorders follow several simple rules no matter of the release
+version nor operating system platform.
+
+\begin{enumerate}
+\item Raw Data File Format: ASCII text file, flatfile
+\item Fields: contains a number of fields, storing the recorded metrics
+\item Field Separator: character ':', ASCII code: Dec 58, Hex 3A
+\end{enumerate}
+
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION 0.73.7 
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{sdrd 0737}
+\noindent
+The current SDRD 0737 daw data format describes how data is arranged and
+presented during the recording process, the order of all fields and 
+their data type. The current format applies to SDR 0.73.7 or greater
+releases only.
+
+% SYSREC
+\subsection*{sysrec}
+sysrec is responsible for overall system performance metrics. The recoder
+stores all the performance metrics simple and compact. The recorder
+will output the sdrd format release using version \\-V option.
+
+
+\subsubsection*{Linux x86/64}
+sysrec under Linux does work under two modes: the default mode where the
+recorder records 32 metrics and the extended mode where the recorder
+reports 43 metrics.
+
+\begin{verbatim}
+
+TIME
+ timestamp   #01 %.${tp}f , supports seconds since epoch and sub second interval
+
+CPU_METRICS
+ cpupct      #02 %.2f , CPU Utilization, across all CPUs, percentage, gauge
+ sumpct      #03 %.2f , sum of all CPUs Utilization, percentage, gauge
+ headpct     #04 %.2f , headroom CPU available, all CPUs, percentage, gauge
+ userpct     #05 %.2f , CPU Utilization User space in percent, gauge
+ nicepct     #06 %.2f , CPU Utilization User space with nice priority, gauge
+ sysct       #07 %.2f , CPU Utilization System space, gauge
+ idlepct     #08 %.2f , CPU Utilization Idle state, gauge
+ iowaitcpt   #09 %.2f , CPU Percentage in Idle state because an I/O, gauge
+                    operation is waiting to complete, gauge
+ irqpct      #10 %.2f , CPU Percentage servicing interrupts, gauge
+ softirqpct  #11 %.2f , CPU Percentage servicing softirqs, gauge
+ stealpct    #12 %.2f , CPU Percentage of time spent in other operating systems
+                    when running in a virtualized environment, gauge
+ runqsz      #13 %d   , run queue length, number of tasks waiting for run time
+ plistsz     #14 %d   , number of tasks in the task list
+
+
+MEM_METRICS
+ memusedpct  #15 %.2f , size of used memory in percent, gauge
+ memused     #16 %d   , size of used memory in kilobytes, gauge (ext)
+ memfree     #17 %d   , size of free memory in kilobytes, gauge (ext)
+ memtotal    #18 %d   , size of memory in kilobytes, gauge (ext)
+ buffers     #19 %d   , size of buffers used from memory in kilobytes, gauge
+(ext)
+ cached      #20 %d   , size of cached memory in kilobytes, gauge (ext)
+ realfree    #21 %d   , size of memory is real free, gauge
+                         (memfree+buffers+cached) (ext)
+ realfreepct #22 %.2f , size of memory is real free in percent of total memory,
+                         gauge (ext)
+ swapusedpct #23 %.2f , size of used swap space in percent, gauge
+ swapused    #24 %d   , size of swap space is used is kilobytes, gauge (ext)
+ swapfree    #25 %d   , size of swap space is free in kilobytes, gauge (ext)
+ swaptotal   #26 %d   , size of swap space in kilobytes, gauge (ext)
+ swapcached  #27 %d   , memory that once was swapped out, is swapped back in
+                         but still also is in the swapfile, gauge (ext)
+
+DISK METRICS
+ readReq     #28 %d   , disk read requests, gauge
+ writeReq    #29 %d   , disk write requests, gauge
+ totReq      #30 %d   , disk read+write requests, gauge
+ readByt     #31 %.2f , read bytes / sec, in KB, gauge
+ writeByt    #32 %.2f , write bytes / sec, in KB, gauge
+ totByt      #33 %.2f , read+write bytes / sec, in KB, gauge
+
+
+NET METRICS
+ rxByt       #34 %.2f , received bytes /sec, in KB, gauge
+ txByt       #35 %.2f , transmitted bytes /sec, in KB, gauge
+ ntByt       #36 %.2f , received + transmitted bytes /sec, in KB, gauge
+ rxerr       #37 %d   , errors that occurred while received pckt/second
+ txerr       #38 %d   , errors that occurred while transmitting pckt/second
+ rxdrp       #39 %d   , Number of rx packets that were dropped per second
+ txerr       #40 %d   , Number of tx packets that were dropped per second
+
+
+ avg_1       #41 %.2f , LA of the last minute
+ avg_5       #42 %.2f , LA of the last 5 minutes
+ avg_15      #43 %.2f , LA of the last 15 minutes
+\end{verbatim}
+
+\subsubsection*{Solaris 10 x64/sparcv9}
+\begin{verbatim}
+
+
+TIME
+ timestamp   #01 %.${tp}f , supports seconds since epoch and sub second interval
+
+CPU
+ cpupct      #02 : CPU Utilization, across all CPUs, percentage, gauge
+ sumpct      #03 : sum of all CPUs utilization, percentage, gauge
+ headpct     #04 : headroom CPU available, all CPUs, percentage, gauge
+ userpct     #05 : CPU Utilization User space, all cpus, percentage, gauge
+ syspct      #06 : CPU Utilization System space, all cpus, percentage, gauge
+ idlepct     #07 : CPU Utilization Idle state, all cpus, percentage, gauge
+ runqlen     #08 : threads on the run queue, gauge
+ pcount      #09 : current process count on the system
+ tcount      #10 : current lwp count on the system
+
+MEM
+ memusedpct  #11 : size of used memory in percent, gauge
+ pscanner    #12 : scan rate of the page scanner, gauge
+
+DISK
+ diskpct     #13 : sum read+write across disks, percentage, gauge
+ diskerrs    #14 : operations on the wait queue, gauge
+
+NET
+ netpct      #15 : throughput, read+write bytes across NICs, percentage, gauge
+ neterrs     #16 : number of errors due to buffer saturation
+
+ la_1        #17 : Load Average 1min
+ la_5        #18 : Load Average 5min
+ la_15       #19 : Load Average 15min
+
+\end{verbatim}
+
+
+\endinput

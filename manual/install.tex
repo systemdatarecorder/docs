@@ -1,0 +1,609 @@
+\chapter{Installation}
+\noindent
+This chapter lists the product requirements and the installation
+notes for SDR.
+
+% %%%%%%%%%%%%
+% REQUIREMENTS
+% %%%%%%%%%%%%
+\section{Requirements}
+\noindent
+Before running SDR, make sure all product requirements
+are satisfied by checking all your servers, where
+you plan to install the software. SDR requires to be installed 
+on each server you plan to collect data from and one additional 
+server, where you plan to keep all recorded data, the reporting server.
+
+\subsection*{Recording Module}
+This modules contains the Perl5 environment, OpenSSL and some
+additional libraries and all SDR recorders and utilities.
+
+In addition, some Perl modules specific to certain operating systems are as well 
+found under recording module, for example: Sun::Solaris::Kstat and
+Linux::System::Statistics.
+
+\begin{center}
+\begin{tabular}{lll}
+
+\multicolumn{3}{c}{} \\
+ \rowcolor{blue!25}
+ \textbf{Item} & \textbf{Minimum Requirement} & \textbf{Description} \\
+ \hline
+ \newline
+
+\multirow{1}{*}{\small{Memory}} &
+ \small{128MB RAM} & \small{standard and specialized recorders} \\
+ \hline
+
+\multirow{2}{*}{\small{Storage}} &
+ \small{150MB} & \small{default installation: 150MB} \\ &
+ \small{1MB} & \small{raw data: per day raw data, per host} \\
+ \hline
+
+\multirow{4}{*}{\small{Operating Systems}} &
+ \small{} & \small{RedHat Entreprise Linux 5.x,6.x} \\ &
+ \small{Linux 2.6+} & \small{Ubuntu Server 10.x,11,12+ LTS} \\ &
+ \small{} & \small{Ubuntu Server 10.x,11,12+ LTS} \\ &
+ \small{Solaris 10} & \small{Solaris 10 Update 6, x64, SPARC} \\
+ \hline
+
+\multirow{1}{*}{\small{System Libraries}} &
+ \small{zlib} & \small{Linux based operating systems} \\
+ \hline
+
+\multirow{2}{*}{\small{Shell}} &
+ \small{ksh93} & \small{Linux based operating systems} \\ &
+ \small{ksh88} & \small{Solaris} \\
+ \hline
+
+\multirow{1}{*}{\small{Utilities}} &
+ \small{chkconfig} & \small{Linux based operating systems} \\ &
+ \small{cron} & \small{update-rc.d cron defaults} \\
+ \hline
+
+\multirow{1}{*}{\small{Java}} &
+ \small{Java 6,7} & \small{Linux,Solaris} \\
+ \hline
+
+\multirow{1}{*}{\small{Virtualization}} &
+ \small{SUNWzoner,SUNWzoneu} & \small{Solaris zones}
+
+\end{tabular}
+\end{center}
+
+
+
+\subsection*{Reporting}
+\noindent
+These are the product requierements for SDR Reporting module for all supported
+operating systems. RedHat/Ubuntu, Solaris SDR reporting module can be 
+installed under RedHat/Ubuntu or Solaris based systems. Currently
+the reporting module has been tested under Solaris 10 Update 8 x64 and
+SPARC V9. SDR Reporting ships with its own Perl distribution, to avoid conflicts 
+with the OS vendor installation.
+
+\begin{center}
+\begin{tabular}{lll}
+
+\multicolumn{3}{c}{} \\
+ \rowcolor{blue!25}
+ \textbf{Item} & \textbf{Minimum Requirement} & \textbf{Description} \\
+ \hline
+ \newline
+
+\multirow{1}{*}{\small{Memory}} &
+ \small{2GB RAM} & \small{} \\
+ \hline
+
+\multirow{2}{*}{\small{Storage}} &
+ \small{1GB} & \small{default installation} \\ &
+ \small{1MB} & \small{raw data: per day raw data, per host} \\
+ \hline
+
+\multirow{4}{*}{\small{Operating Systems}} &
+ \small{} & \small{RedHat Entreprise Linux 5.x,6.x} \\ &
+ \small{Linux 2.6+} & \small{Ubuntu Server 10.x,11,12+ LTS} \\ &
+ \small{} & \small{Ubuntu Server 10.x,11,12+ LTS} \\ &
+ \small{Solaris 10} & \small{Solaris 10 Update 6, x64, SPARC} \\
+ \hline
+
+\multirow{2}{*}{\small{System Libraries}} &
+ \small{zlib, expat, bzip2-libs, libX11} & \small{Linux based operating systems} \\ &
+ \small{libXt, libICE, libSM, libXau, libXdmcp} & \small{} \\
+ \hline
+
+\multirow{2}{*}{\small{Shell}} &
+ \small{ksh93} & \small{Linux based operating systems} \\ &
+ \small{ksh88} & \small{Solaris} \\
+ \hline
+
+\multirow{1}{*}{\small{Utilities}} &
+ \small{chkconfig} & \small{Linux based operating systems} \\ &
+ \small{cron} & \small{update-rc.d cron defaults} \\
+ \hline
+
+\end{tabular}
+\end{center}
+
+
+% %%%%%%%%%%%% %
+% INSTALLATION %
+% %%%%%%%%%%%% %
+\pagebreak
+\section{Installing SDR}
+\noindent
+In order to operate with SDR you will need to install 
+the recording package on all your servers you plan to 
+collect data from. You need as well to configure how 
+each server's data will be stored and the data 
+retention policy: how many days you plan to keep 
+data on those servers and finally a last step setting up
+a reporting server, a place you will store the recorded 
+data over time.
+
+\subsection*{Recording}
+
+
+% LINUX
+\subsubsection*{Linux}
+This is the main installation procedure, in setting up
+the SDR Recording module. Execute the following steps,
+on each physical server:
+
+\begin{enumerate}
+
+\item SDR package\\
+SDR software should be configured to run as sdr user. Create a specific 
+username/group for SDR. Select 'sdr' for a default installation.
+
+\begin{Verbatim}[fontsize=\relsize{-2},frame=single,
+                 label=\fbox{Installation Package},
+                 framesep=3mm,labelposition=bottomline]
+
+ # groupadd sdr
+ # useradd -d /home/sdr -g sdr -m sdr
+     
+ # cd /opt
+ # bzcat sdr.074.linux-x64.tar.bz2 | tar xvf -
+
+\end{Verbatim}
+
+
+\item Startup Services\\ 
+Edit the startup script, sdr. Enable/Disable services for RECORDERS variable.
+Simple add or remove under RECORDERS variable the names of the records
+you want to start/stop. Ignore the last part 'rec'.
+
+\begin{Verbatim}[fontsize=\relsize{-2},frame=single,
+                label=\fbox{Startup Services},
+                framesep=2mm,labelposition=bottomline]
+
+Default:
+ RECORDERS="sys cpu nic"
+
+Add jvmrec, netrec:
+ RECORDERS="sys cpu nic net jvm"
+
+\end{Verbatim}
+
+\item Startup\\
+Enable sdr startup script
+
+\begin{Verbatim}[fontsize=\relsize{-2},frame=single,
+                label=\fbox{Startup},
+                framesep=2mm,labelposition=bottomline]
+
+   # cd /etc/init.d
+   # ln -s /opt/sdr/etc/sdr .
+   # chkconfig --add sdr
+   # chkconfig --list sdr
+   
+   sdr  0:off  1:off  2:on   3:on   4:on   5:on   6:off  
+
+ Start all configured services
+
+   # /etc/init.d/sdr start
+   Starting SDR services
+    sysrec service: ok
+    cpurec service: ok
+    netrec service: ok
+
+
+ Stop all configured services
+
+   # /etc/init.d/sdr stop
+   Stopping SDR services
+    sysrec service: ok
+    cpurec service: ok
+    netrec service: ok
+
+\end{Verbatim}
+
+\item Logrotate
+
+Enable log rotation every 24hrs. Configure sdr rotation script 
+and raw2day. Edit root's or sdr's crontab, depending what
+is your user configuration for running SDR. Example root:
+
+\begin{Verbatim}[fontsize=\relsize{-2},frame=single,
+                label=\fbox{Logrotate},
+                framesep=2mm,labelposition=bottomline]
+
+# env EDITOR=vi crontab -e
+05 00 * * *  /usr/sbin/logrotate -f -s /opt/sdr/log/logsdr.status /opt/sdr/etc/logrotate.sdr
+06 00 * * *  /opt/sdr/bin/raw2day
+
+
+\end{Verbatim}
+\end{enumerate}
+
+SDR uses its own logroate job in order to be flexible and dont conflict with 
+other operating system jobs. raw2day as well is called after the logrotation 
+has taken place ! If your installation requires to copy every night the raw 
+data to the reporting system, make sure you configure raw2day and check the 
+SDR Manual for more information.    
+
+
+
+% SOLARIS 
+\subsubsection*{Solaris}
+
+This is the main installation procedure, in setting up
+the SDR Recording module. Execute the following steps,
+on each physical server. Example for SDR 0.74 release:
+
+\begin{enumerate}
+
+\item SDR package:
+
+\begin{Verbatim}[fontsize=\relsize{-2},frame=single,
+                 label=\fbox{Installation procedure},
+                 framesep=3mm,labelposition=bottomline]
+
+$ wget \
+  http://www.systemdatarecorder.org/pkgs/sdr-074-solaris10x64.tar.bz2
+
+# cd /opt
+# bzcat sdr-074-solaris10x64.tar.bz2 | tar xvf -
+
+\end{Verbatim}
+
+\item setenv script:\\
+Adjust SDR\_ROOT to point to your SDR installation
+path. Default is /opt/sdr
+
+\item SAR:\\
+SDR uses SAR, system activity reporter
+
+\begin{Verbatim}[fontsize=\relsize{-2},frame=single,
+                 label=\fbox{SAR},
+                 framesep=3mm,labelposition=bottomline]
+
+# svcadm enable sar
+
+# crontab -l sys
+0,5,10,15,20,25,30,35,40,45,50,55 * * * * /usr/lib/sa/sa1 
+
+\end{Verbatim}
+
+
+\noindent
+On Solaris systems, one very useful feature of SDR is SMF: 
+the service management facility, a way to automatic restart 
+your service in case of a failure, maintenance, etc. SDR 
+uses SMF, by default, under Solaris 10 but you need to
+activate it. Below there are the steps used to enable SDR under SMF.
+
+\item SMF Manifests:
+
+\begin{Verbatim}[fontsize=\relsize{-2},frame=single,
+                 label=\fbox{SMF Manifests},
+                 framesep=3mm,labelposition=bottomline]
+
+# svcs -a | grep rec
+
+# svcadm disable sysrec
+# svcadm disable cpurec
+# svcadm disable nicrec
+
+# cd /opt/sdr/smf
+# svccfg validate sysrec.xml 
+# svccfg validate cpurec.xml                       
+# svccfg validate nicrec.xml                       
+
+# svccfg  import sysrec.xml
+# svccfg  import cpurec.xml                        
+# svccfg  import nicrec.xml                        
+
+# svcadm enable sysrec
+# svcadm enable cpurec
+# svcadm enable nicrec                             
+
+\end{Verbatim}
+
+\item Check recorders and raw data:
+
+\begin{Verbatim}[fontsize=\relsize{-2},frame=single,
+                 label=\fbox{Pre-check},
+                 framesep=3mm,labelposition=bottomline]
+
+# svcs -a | grep rec
+online         16:36:07 svc:/application/sysrec:default
+online         16:37:43 svc:/application/cpurec:default
+online         16:37:47 svc:/application/nicrec:default
+
+# pwd
+/opt/sdr/log/raw
+# ls -lrt
+total 25
+-rw-r--r--   1 root     root         342 Oct 31 16:39 cpurec.raw
+-rw-r--r--   1 root     root         522 Oct 31 16:39 nicrec.raw
+-rw-r--r--   1 root     root         263 Oct 31 16:40 sysrec.raw
+
+\end{Verbatim}
+
+\noindent
+Enable for each raw file, a entry for logadm to rotate the file
+at midnight and to compress the file. For this make sure you are
+superuser and modify the /etc/logadm.conf file or use logadm
+utility to add the entries.
+
+\item Enable logadm:
+
+\begin{Verbatim}[fontsize=\relsize{-2},frame=single,
+                 label=\fbox{Logadm},
+                 framesep=3mm,labelposition=bottomline]
+
+# SDR Monitoring
+/opt/sdr/log/raw/sysrec.raw -c -p 1d -z 0
+/opt/sdr/log/raw/cpurec.raw -c -p 1d -z 0
+/opt/sdr/log/raw/nicrec.raw -c -p 1d -z 0
+
+# logadm -V 
+\end{Verbatim}
+
+
+\item root crontab:
+
+\begin{Verbatim}[fontsize=\relsize{-2},frame=single,
+                 label=\fbox{crontab},
+                 framesep=3mm,labelposition=bottomline]
+
+# crontab -e
+
+Add here logadm to be done at 00:05, everyday instead of 3AM
+and move the raw data compressed into daily directories.
+
+#
+05 00 * * * /usr/sbin/logadm
+10 00 * * * /opt/sdr/bin/raw2day
+
+\end{Verbatim}
+
+\end{enumerate}
+
+
+
+
+% %%%%%%% %
+% UPGRADE %
+% %%%%%%% %
+
+\pagebreak
+\section{Upgrading SDR}
+\noindent
+This section describes the practical steps to keep up to
+date SDR.
+
+\subsection*{Recording}
+\noindent
+If you have already installed SDR make sure you follow 
+the instructions.
+
+
+% LINUX
+\subsubsection*{Linux}
+
+\begin{enumerate}
+
+\item Backup config and hook files:
+\begin{Verbatim}[fontsize=\relsize{-2},frame=single,
+                 label=\fbox{SDR Upgrading procedure},
+                 framesep=3mm,labelposition=bottomline]
+
+# cd /opt/sdr
+# cp -pr bin bin.sdr.previous
+
+\end{Verbatim}
+
+
+\item Disable each service:
+\begin{Verbatim}[fontsize=\relsize{-2},frame=single,
+                 label=\fbox{Disable Services},
+                 framesep=3mm,labelposition=bottomline]
+
+# /etc/init.d/sdr stop 
+
+\end{Verbatim}
+
+
+\item SDR package:
+
+\begin{Verbatim}[fontsize=\relsize{-2},frame=single,
+                 label=\fbox{Installation Package},
+                 framesep=3mm,labelposition=bottomline]
+
+$ wget \
+  http://www.systemdatarecorder.org/pkgs/sdr-0734-linux-x64.tar.bz2
+
+# cd /opt
+# bzcat sdr-0734-linux-x64.tar.bz2 | tar xvf -
+
+\end{Verbatim}
+
+\item setenv script
+\noindent
+Restore MONITOR\_PATH to point to your SDR installation
+path. Default is /opt/sdr
+
+\item Restore ftp, ssh2 hooks
+\noindent
+raw2day is used to automatically send data every night 
+to a reporting server. If you use a 24hours time window 
+update policy make sure you restore your raw2day hooks 
+as they were found before the upgrade.
+
+\end{enumerate}
+
+
+
+% SOLARIS 
+\subsubsection*{Solaris}
+
+\begin{enumerate}
+
+\item Backup config and hook files:
+\begin{Verbatim}[fontsize=\relsize{-2},frame=single,
+                 label=\fbox{SDR Upgrading procedure},
+                 framesep=3mm,labelposition=bottomline]
+
+# cd /opt/sdr
+# cp -pr bin bin.sdr.previous
+
+\end{Verbatim}
+
+
+\item Disable each service:
+\begin{Verbatim}[fontsize=\relsize{-2},frame=single,
+                 label=\fbox{Disable Services},
+                 framesep=3mm,labelposition=bottomline]
+
+# svcadm disable sysrec
+# svcadm disable cpurec
+# svcadm disable nicrec
+
+\end{Verbatim}
+
+
+\item SDR package:
+
+\begin{Verbatim}[fontsize=\relsize{-2},frame=single,
+                 label=\fbox{Installation Package},
+                 framesep=3mm,labelposition=bottomline]
+
+$ wget \
+  http://www.systemdatarecorder.org/pkgs/sdr-0734-solaris10x64.tar.bz2
+
+# cd /opt
+# bzcat sdr-0734-solaris10x64.tar.bz2 | tar xvf -
+
+\end{Verbatim}
+
+\item setenv script
+\noindent
+Restore MONITOR\_PATH to point to your SDR installation
+path. Default is /opt/sdr
+
+\item Restore ftp, ssh2 hooks
+\noindent
+raw2day is used to automatically send data every night 
+to a reporting server. If you use a 24hours time window 
+update policy make sure you restore your raw2day hooks 
+as they were found before the upgrade.
+
+\end{enumerate}
+
+
+
+
+
+
+% %%%%%%%%% %
+% UNINSTALL %
+% %%%%%%%%% %
+\pagebreak
+\section{Uninstalling SDR}
+
+\subsection*{Recording}
+\noindent
+This section describes how to remove SDR from a Linux or
+Solaris system.
+
+% LINUX
+\subsubsection*{Linux}
+
+\begin{enumerate}
+
+\item Stop all recorders:
+\begin{Verbatim}[fontsize=\relsize{-2},frame=single,
+                 label=\fbox{Stop all recorders},
+                 framesep=3mm,labelposition=bottomline]
+
+# /etc/init.d/sdr stop
+
+\end{Verbatim}
+
+
+\item Remove all SDR software:
+\begin{Verbatim}[fontsize=\relsize{-2},frame=single,
+                 label=\fbox{Removal of SDR},
+                 framesep=3mm,labelposition=bottomline]
+
+
+# cd /opt/
+# rm -rf sdr
+
+\end{Verbatim}
+\end{enumerate}
+
+
+
+% Solaris 
+\subsubsection*{Solaris}
+In order to remove SDR from your system make sure you login in the 
+global zone of the physical machine where you have installed the software. 
+Become root and disable all SDR recorders from SMF, if you are on Solaris 
+and delete all its manifests.  Make sure you delete the log directory, 
+where SDR keeps its recorded data to make room for other applications.
+
+
+\begin{enumerate}
+
+\item Stop all recorders:
+\begin{Verbatim}[fontsize=\relsize{-2},frame=single,
+                 label=\fbox{SDR Uninstall procedure},
+                 framesep=3mm,labelposition=bottomline]
+
+# svcadm disable sysrec
+# svcadm disable cpurec                            
+# svcadm disable nicrec                            
+
+# svcs -a | grep rec
+disabled       16:43:55 svc:/application/sysrec:default
+disabled       16:44:02 svc:/application/cpurec:default
+disabled       16:44:05 svc:/application/nicrec:default
+
+\end{Verbatim}
+
+
+\item Delete all SDR manifests:
+\begin{Verbatim}[fontsize=\relsize{-2},frame=single,
+                 label=\fbox{Removal SMF manifests},
+                 framesep=3mm,labelposition=bottomline]
+
+# svccfg delete application/sysrec
+# svccfg delete application/cpurec                 
+# svccfg delete application/nicrec                 
+
+At this moment SMF does not know anymore about SDR
+
+# svcs -a | grep rec
+
+# cd /opt/
+# rm -rf sdr
+
+\end{Verbatim}
+\end{enumerate}
+
+
+\endinput

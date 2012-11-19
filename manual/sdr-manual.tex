@@ -1,0 +1,209 @@
+\documentclass[10pt,a4paper,oneside]{book}
+\usepackage{listings}
+\usepackage{multirow}
+\usepackage[table]{xcolor}
+\definecolor{tableShade}{HTML}{C5D5A9}
+\definecolor{tableShade2}{HTML}{ECECEC}
+\usepackage{shadow}
+\usepackage[left=+2.2cm, right=+2.5cm]{geometry} 
+\usepackage[T1]{fontenc}
+\usepackage[pdftex]{graphicx}
+\usepackage{relsize,fancyvrb}
+\usepackage{fancyhdr}
+
+% The package hyperref provides LaTeX the ability to create hyperlinks within
+% the document
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,%
+    citecolor=black,%
+    filecolor=black,%
+    linkcolor=black,%
+    urlcolor=black
+}
+
+\usepackage{eso-pic}
+\newcommand\BackgroundPic{
+\put(0,0){
+\parbox[b][\paperheight]{\paperwidth}{%
+\vfill
+\centering
+\includegraphics[width=\paperwidth,height=\paperheight,keepaspectratio]{back.png}
+\vfill
+}}}
+
+
+\renewcommand{\rmdefault}{phv} % Arial
+\renewcommand{\sfdefault}{phv} % Arial
+
+\usepackage{color}
+\definecolor{gray}{rgb}{0.4,0.4,0.4}
+\definecolor{darkblue}{rgb}{0.0,0.0,0.6}
+\definecolor{cyan}{rgb}{0.0,0.6,0.6}
+
+\lstset{
+  basicstyle=\ttfamily,
+  columns=fullflexible,
+  showstringspaces=false,
+  commentstyle=\color{gray}\upshape
+}
+
+\lstdefinelanguage{XML}
+{
+  morestring=[b]",
+  morestring=[s]{>}{<},
+  morecomment=[s]{<?}{?>},
+  stringstyle=\color{black},
+  identifierstyle=\color{darkblue},
+  keywordstyle=\color{cyan},
+  morekeywords={xmlns,version,type}% list your attributes here
+}
+
+
+% %%%%%%%%% %
+% FrontPage %
+% %%%%%%%%% %
+\makeatletter
+\def\thickhrulefill{\leavevmode \leaders \hrule height 1pt\hfill \kern \z@}
+\renewcommand{\maketitle}{\begin{titlepage}%
+    \let\footnotesize\small
+    \let\footnoterule\relax
+    \parindent \z@
+    \reset@font
+    \null\vfil
+    \includegraphics[width=15mm,height=15mm]{sdrnew40x42.png}
+    \begin{flushleft}
+      \huge \bfseries \strut \@title \strut
+    \end{flushleft}
+    \par
+    \hrule height 1pt
+    \par
+    \begin{flushleft}
+      \bfseries \large ver 0.74 Beta
+    \end{flushleft}
+    \begin{flushright}
+      \@author \par
+    \end{flushright}
+    \vskip 60\p@
+    \vfil\null
+    \par
+    \begin{flushleft}
+       Tactical planning to meet today's demanding capacity challenges.
+       Monitoring and analysing the IT infrastructure is an important key to
+       ensure your business continuity and prepare for future grow. SDR is
+       simple to use for performance analysis, system sizing, and capacity
+       planning in today's challenging business environments !
+    \end{flushleft}
+    \begin{flushleft}
+       Capacity planning is not just about the future anymore.
+       Today, there is a serious need to squeeze more out of your current
+       capital
+       equipment\footnote{\href{http://www.perfdynamics.com/Manifesto/gcaprules.html}
+             {Guerrilla Capacity Planning GCaP}}
+     \end{flushleft}
+  \end{titlepage}%
+  \setcounter{footnote}{0}%
+}
+
+
+\makeatletter
+\def\thickhrulefill{\leavevmode \leaders \hrule height 1ex \hfill \kern \z@}
+\def\@makechapterhead#1{%
+  \vspace*{10\p@}%
+  {\parindent \z@ 
+    {\raggedleft \reset@font
+      \fontsize{5ex}{5ex}\selectfont
+      \bfseries\thechapter\par\nobreak}
+    \par\nobreak
+    \interlinepenalty\@M
+    {\raggedright \Huge \bfseries #1}
+    \par\nobreak
+    \hrulefill
+    \par\nobreak
+    \vskip 25\p@
+  }}
+\def\@makeschapterhead#1{
+  \vspace*{10\p@}
+  {\parindent \z@ 
+    {\raggedleft \reset@font
+      \fontsize{5ex}{5ex}\selectfont
+      \bfseries\vphantom{\thechapter}\par\nobreak}
+    \par\nobreak
+    \interlinepenalty\@M
+    {\raggedright \Huge \bfseries #1}%
+    \par\nobreak
+    \hrulefill
+    \par\nobreak
+    \vskip 25\p@
+  }}
+
+
+
+
+% marginal notes
+\newcommand\marginlabel[1]{\mbox{}\marginpar
+  {\raggedright\hspace{0pt}#1}}
+
+
+
+% sets title, author, date
+\title{System Data Recorder SDR \\
+       User Guide}
+\author{\href{http://www.systemdatarecorder.org}
+              {www.systemdatarecorder.org}}
+\date{March 10, 2012}
+
+ 
+% sets the PDF info
+%\pdfinfo{
+%   /Author (sparvu)
+%   /Title  (User Guide)
+   % YYYYMMDDHHmmss
+%   /CreationDate (D:20091129120000)
+%   /Subject (SDR Installation)
+%   /Keywords (SDR;Install;Unix;Linux)
+%}
+
+
+% %%%%%%%%%%%%%% %
+% Begin Document %
+% %%%%%%%%%%%%%% %
+\begin{document}
+
+\frontmatter
+\maketitle
+\include{copyright}
+\include{credits}
+\tableofcontents
+%\AddToShipoutPicture*{\BackgroundPic}
+%\listoffigures
+%\listoftables
+
+\mainmatter
+% Include Chapters
+
+% Chapter 1
+\include{intro}
+
+% Recording Module
+\include{recording}
+
+%Reporting Module
+\include{reporting}
+
+% Installation
+\include{install}
+ %  Requirements
+ %  Install phase
+ %  Start
+
+\appendix
+\include{perlmods}
+\include{sdrd}
+\include{relnotes}
+%\include{code}
+
+\backmatter
+\end{document}
+% %%%%%%%%%%%%%% %
+
